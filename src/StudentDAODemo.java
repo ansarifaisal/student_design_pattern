@@ -3,33 +3,45 @@ import com.niit.student.daoimpl.StudentDAOImpl;
 import com.niit.student.entity.Student;
 
 public class StudentDAODemo {
+	private static StudentDAO studentDAO = StudentDAOImpl.getStudentDAO();
 	public static void main(String ...strings){
 		//Displaying all the students
 		System.out.println("Displaying all students");
-		StudentDAO studentDAO = StudentDAOImpl.getStudentDAO();
-		displayAllStudents(studentDAO);	
+		
+		displayAllStudents();	
 		
 		//Adding
 		System.out.println("After Adding");
 		Student student = new Student(6, "Test", "Kurla", 5, 106);
 		studentDAO.add(student);
-		displayAllStudents(studentDAO);
+		displayAllStudents();
 		
 		//Updating
 		System.out.println("After Updating");
 		student = studentDAO.getId(4);
 		studentDAO.update(student);
 		student.setName("Sailee");
-		displayAllStudents(studentDAO);
+		displayAllStudents();
 		
 		//Deleting
 		System.out.println("After Deleting");
 		student = studentDAO.getId(5);
 		studentDAO.delete(student);
-		displayAllStudents(studentDAO);
+		displayAllStudents();
+		
+		//get by address
+		System.out.println("Address");
+		displayByAddress("Chembur");
 	}
 
-	private static void displayAllStudents(StudentDAO studentDAO) {
+	private static void displayByAddress(String address) {
+		for (Student student : studentDAO.getByAddress(address)) {
+			System.out.println(student);
+		}
+		
+	}
+
+	private static void displayAllStudents() {
 		for (Student student : studentDAO.studentList()) {
 			System.out.println(student);
 		}

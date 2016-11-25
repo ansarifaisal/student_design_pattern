@@ -59,4 +59,14 @@ public class StudentDAOImpl implements StudentDAO {
 		students.remove(student);
 		return true;
 	}
+	@Override
+	public List<Student> getByAddress(String address) {
+		List<Student> temp = new ArrayList<>();
+		for (Student student : students) {
+			if(student.getAddress().equals(address)){
+				temp.add(student);
+			}
+		}
+		return temp;
+	}
 }
